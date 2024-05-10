@@ -40,6 +40,49 @@
         </div>
     </div>
     <!-- loader END -->
+    <?php
+    if (isset($_POST['register'])) {
+        $firstname = $_POST['fname'];
+        $lastname = $_POST['lname'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $cpassword = $_POST['cpassword'];
+        //$checkbox = $_POST['terms'];
+
+        if (!preg_match('[^A-Za-z]', $firstname)) {
+            $message = "Firstname can only Contain letters";
+        } elseif (preg_match('[^A-Za-z]', $lastname)) {
+            $message = "Lastname can only Contain letters";
+        } elseif (empty($firstname) || empty($lastname) || empty($email) || empty($password) || empty($cpassword)) {
+            $message = "All Fields must be Filled out";
+        } elseif (preg_match('[^@]', $email)) {
+            $message = "Invalid Email Type";
+        } elseif (strlen(trim($password)) < 7) {
+            $message = "Password can not be less than 9 characters";
+        } elseif (!$checkbox) {
+            $message = "You must accept the terms to proceed";
+        } elseif ($password === $cpassword) {
+            $check_reg = "select * from user where email = '$email'";
+            $result = mysqli_query($conn, $check_reg);
+            if ($result && mysqli_num_rows($result) > 0) {
+                $message = "Email already Exist";
+            } else {
+                $hash_pass = md5($password);
+                $query = "insert into user values(null,'$firstname','$lastname','$email','$hash_pass',now())";
+                $insert = mysqli_query($conn, $query);
+
+                if (!$insert) {
+                    $message = 'Registration Unsuccessful';
+                } else {
+                    header("location:success.php");
+                    exit();
+                }
+            }
+        } else {
+            $message = "Passwords do not match";
+        }
+    }
+    ?>
 
     <div class="wrapper">
         <section class="login-content">
@@ -51,6 +94,11 @@
                             <img src="./assets/images/logo-white.png" class="img-fluid rounded-normal darkmode-logo logo" alt="logo">
                             <h3 class="mb-3">Sign Up</h3>
                             <p>Create your account.</p>
+                            <?php if (isset($message)) { ?>
+                                <div>
+                                    <p style="color:red"> <?= htmlspecialchars($message) ?> </p>
+                                </div>
+                            <?php } ?>
                             <form method="POST">
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -85,7 +133,7 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="custom-control custom-checkbox mb-3 text-left">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck1" name="checkbox">
                                             <label class="custom-control-label" for="customCheck1">I agree with the terms of use</label>
                                         </div>
                                     </div>
@@ -95,35 +143,7 @@
                                     Already have an Account <a href="index.php" class="text-primary">Sign In</a>
                                 </p>
                             </form>
-                            <?php
-                            if (isset($_POST['register'])) {
-                                $firstname = $_POST['fname'];
-                                $lastname = $_POST['lname'];
-                                $email = $_POST['email'];
-                                $password = $_POST['password'];
-                                $cpassword = $_POST['cpassword'];
 
-                                if ($password === $cpassword) {
-                                    $check_reg = "select * from user where email = '$email'";
-                                    $result = mysqli_query($conn, $check_reg);
-                                    if ($result && mysqli_num_rows($result) > 0) {
-                                        echo '<script type="text/javascript">alert("email does not");</script>';
-                                    } else {
-                                        $hash_pass = md5($password);
-                                        $query = "insert into user values(null,'$firstname','$lastname','$email','$hash_pass',now())";
-                                        $insert = mysqli_query($conn, $query);
-
-                                        if (!$insert) {
-                                            echo '<script type="text/javascript">alert("registration unsuccessful");</script>';
-                                        } else {
-                                            header('location:login.php');
-                                        }
-                                    }
-                                } else {
-                                    echo '<script type="text/javascript">alert("Passwords do not");</script>';
-                                }
-                            }
-                            ?>
                         </div>
                     </div>
                 </div>

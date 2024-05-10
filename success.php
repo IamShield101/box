@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 
-<?php include "header.php";   ?>
+<?php include "header.php"; ?>
 
 <body class=" ">
     <!-- loader Start -->
@@ -13,43 +13,17 @@
 
     <div class="wrapper">
         <section class="login-content">
-            <div class="container h-100">
+            <div class="container-fluid h-100">
                 <div class="row justify-content-center align-items-center height-self-center">
                     <div class="col-md-5 col-sm-12 col-12 align-self-center">
                         <div class="sign-user_card">
                             <img src="./assets/images/logo.png" class="img-fluid rounded-normal light-logo logo" alt="logo">
                             <img src="./assets/images/logo-white.png" class="img-fluid rounded-normal darkmode-logo logo" alt="logo">
-                            <h3 class="mb-3">Sign In</h3>
-                            <p>Login to stay connected.</p>
-                            <form>
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="floating-label form-group">
-                                            <input class="floating-input form-control" type="email" placeholder=" ">
-                                            <label>Email</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="floating-label form-group">
-                                            <input class="floating-input form-control" type="password" placeholder=" ">
-                                            <label>Password</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="custom-control custom-checkbox mb-3 text-left">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                            <label class="custom-control-label" for="customCheck1">Remember Me</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <a href="auth-recoverpw.html" class="text-primary float-right">Forgot Password?</a>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Sign In</button>
-                                <p class="mt-3">
-                                    Create an Account <a href="register.php" class="text-primary">Sign Up</a>
-                                </p>
-                            </form>
+                            <h2 class="mt-3 mb-3">Success !</h2>
+                            <p class="cnf-mail m-auto mb-1">An email has been sent to your email @domain.com with a link to confirm your email. Kindly click on the button below to login</p>
+                            <div class="d-inline-block w-100">
+                                <a href="index.html" type="submit" class="btn btn-primary mt-3">Click to Login</a href="index.php">
+                            </div>
                         </div>
                     </div>
                 </div>
