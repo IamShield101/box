@@ -44,20 +44,25 @@
     if (isset($_POST['register'])) {
         $firstname = $_POST['fname'];
         $lastname = $_POST['lname'];
+        $username = $_POST['username'];
         $email = $_POST['email'];
         $password = $_POST['password'];
         $cpassword = $_POST['cpassword'];
-        //$checkbox = $_POST['terms'];
+        $checkbox = $_POST['checkbox'];
 
-        if (!preg_match('[^A-Za-z]', $firstname)) {
+        if (preg_match('/[^A-Za-z]/', $firstname)) {
             $message = "Firstname can only Contain letters";
-        } elseif (preg_match('[^A-Za-z]', $lastname)) {
+        } elseif (preg_match('/[^A-Za-z]/', $lastname)) {
             $message = "Lastname can only Contain letters";
-        } elseif (empty($firstname) || empty($lastname) || empty($email) || empty($password) || empty($cpassword)) {
+        } elseif (empty($firstname) || empty($lastname) || empty($username) || empty($email) || empty($password) || empty($cpassword)) {
             $message = "All Fields must be Filled out";
-        } elseif (preg_match('[^@]', $email)) {
+        } elseif (preg_match('/[^A-Za-z0-9_]/', $username)) {
+            $message = " Username can only contain Letters,Numbers and Underscore";
+        } elseif (strlen($username) < 7) {
+            $message = "Username can not be less than 7 characters";
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $message = "Invalid Email Type";
-        } elseif (strlen(trim($password)) < 7) {
+        } elseif (strlen(trim($password)) < 9) {
             $message = "Password can not be less than 9 characters";
         } elseif (!$checkbox) {
             $message = "You must accept the terms to proceed";
@@ -68,7 +73,7 @@
                 $message = "Email already Exist";
             } else {
                 $hash_pass = md5($password);
-                $query = "insert into user values(null,'$firstname','$lastname','$email','$hash_pass',now())";
+                $query = "insert into user values(null,'$firstname','$lastname','$username','$email','$hash_pass',now())";
                 $insert = mysqli_query($conn, $query);
 
                 if (!$insert) {
@@ -111,6 +116,12 @@
                                         <div class="floating-label form-group">
                                             <input class="floating-input form-control" name="lname" type="text" placeholder=" ">
                                             <label>Last Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="floating-label form-group">
+                                            <input class="floating-input form-control" name="username" type="text" placeholder=" ">
+                                            <label>Username</label>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">

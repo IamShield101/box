@@ -22,7 +22,7 @@
                             <h2 class="mt-3 mb-3">Success !</h2>
                             <p class="cnf-mail m-auto mb-1">An email has been sent to your email @domain.com with a link to confirm your email. Kindly click on the button below to login</p>
                             <div class="d-inline-block w-100">
-                                <a href="index.html" type="submit" class="btn btn-primary mt-3">Click to Login</a href="index.php">
+                                <a href="index.php" type="submit" class="btn btn-primary mt-3">Click to Login</a href="index.php">
                             </div>
                         </div>
                     </div>
