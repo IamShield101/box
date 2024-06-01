@@ -1,0 +1,4 @@
+User Registration System:
+
+Build a basic user registration system with features such as registration form, login, and logout.
+Learn about form handling, sessions, and basic user authentication.

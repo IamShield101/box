@@ -1,3 +1,20 @@
+<?php session_start();
+include "db/connect.php";
+
+if (isset($_SESSION['current_user']) || !empty($_SESSION['current_user'])) {
+    $current_user = $_SESSION['current_user'];
+    $current_email = $_SESSION['current_email'];
+    $current_id = $_SESSION['current_id'];
+    $current_fname = $_SESSION['first_name'];
+    $current_lname = $_SESSION['last_name'];
+    $username = $_SESSION['username'];
+} else {
+    header('location:index.php');
+}
+?>
+
+
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
